@@ -183,8 +183,11 @@ class ActiveInferenceModel:
         self.save_weights(folder_chp)
         with open(folder_chp+'/stats.pkl','wb') as ff:
             pickle.dump(stats,ff)
+            
+        optimizers = {key: opt.get_config() for key, opt in optimizers.items()}
         with open(folder_chp+'/optimizers.pkl','wb') as ff:
             pickle.dump(optimizers,ff)
+            
         copyfile('src/tfmodel.py', folder_chp+'/tfmodel.py')
         copyfile('src/tfloss.py', folder_chp+'/tfloss.py')
         if script_file != "":
